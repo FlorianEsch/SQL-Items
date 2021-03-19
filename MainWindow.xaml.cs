@@ -27,7 +27,6 @@ namespace ShowSQL
         InitializeComponent();    
         }
         
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var oTask = new Task(TaskName.Text, TaskTime.Text, TaskPic.Text);
@@ -39,6 +38,7 @@ namespace ShowSQL
                     oSqlCommand.Connection = oSqlConnection;
                     oSqlCommand.Parameters.AddWithValue("@TaskName", oTask.Name);
                     oSqlCommand.Parameters.AddWithValue("@TaskTime", oTask.dateTime.ToString("HH:mm"));
+                    //Es soll noch ein Bild eingefügt werden
                     oSqlCommand.CommandText = @"
 INSERT INTO Task
 (
@@ -52,33 +52,24 @@ INSERT INTO Task
                     if(oSqlCommand.ExecuteNonQuery() == 1)
                     {                       
                         MessageBox.Show("Datensatz erfolgreich eingefügt.");
-
                     }
                     else
                     {
                         MessageBox.Show("Datensatz konnte nicht eingefügt werden.");
                     }
                 }
-
             }
-            ListViewTask.Items.Add(oTask);
-
-
+            ListItemTask.Items.Add(oTask);
         }
 
         
 
         private void Button_Close(object sender, RoutedEventArgs e)
-        {
-         
+        {     
             Button btn = sender as Button;
-            
-            ListViewTask.Items.RemoveAt(0);
+            // Ich muss noch herausfinden wie das Objekt erkennen auf dem der Button ist
+            ListItemTask.Items.RemoveAt(0);
         }
-
-
-
-
 
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
